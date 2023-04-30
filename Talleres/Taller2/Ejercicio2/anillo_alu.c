@@ -49,11 +49,70 @@ void cerrarPipesPadre(int pipeDesdePadre[2], int pipeHaciaPadre[2], int pipesEnt
 	}
 }
 
-void ejecutarHijo(int pipeDesdePadre[2], int pipeHaciaPadre[2], int pipesEntreHijos[][2], int indexHijo, int start, int n) {
+void ejecutarPrimerHijo(int pipeDesdePadre[2], int pipeHaciaPadre[2], int pipesEntreHijos[][2],
+				int start, int n)
+{
+	//Recibir numero entero de padre
+	int nroRecibido;
+	read(pipeDesdePadre[PIPE_READ], &nroRecibido, sizeof(int));
+	// printf("DEBUG: Recibí el nro %i de padre. Soy el proceso %i.\n", nroRecibido, start);
+	//Generar numero secreto
+	int nroSecreto = nroRecibido; //Inicializo en el mismo de padre para entrar en el while
+	while (nroSecreto <= nroRecibido) {
+		nroSecreto = generate_random_number();
+	}
+	// printf("DEBUG: El numero secreto es %i.\n", nroSecreto);
+	//Iniciamos la ronda
+	int sucesor = start;
+	int antecesor = start - 1;
+	if (antecesor < 0) antecesor += n;
+
+	nroRecibido++;
+	write(pipesEntreHijos[sucesor][PIPE_WRITE], &nroRecibido, sizeof(int));
+	// printf("DEBUG: Envié el nro %i al proceso %i. Soy el proceso %i.\n", nroRecibido, (start+1)%n, start);
+	while (true) { 
+		read(pipesEntreHijos[antecesor][PIPE_READ], &nroRecibido, sizeof(int));
+		// printf("DEBUG: Recibí el nro %i del proceso %i. Soy el proceso %i.\n", nroRecibido, antecesor,start);
+		if (nroRecibido >= nroSecreto) break;
+		nroRecibido++;
+		write(pipesEntreHijos[sucesor][PIPE_WRITE], &nroRecibido, sizeof(int));
+		// printf("DEBUG: Envié el nro %i al proceso %i. Soy el proceso %i.\n", nroRecibido, (start+1)%n,start);
+	}
+
+	//Enviamos el último valor obtenido a padre
+	write(pipeHaciaPadre[PIPE_WRITE], &nroRecibido, sizeof(int));
+	// printf("DEBUG: Envío al padre el número %i, que fue el último valor recibido.\n", nroRecibido);
+	exit(EXIT_SUCCESS);
+}
+
+void ejecutarRestoDeHijos(int pipesEntreHijos[][2], int indexHijo, int n){
+	//Inicializamos variables
+	int nroRecibido;
+	int sucesor = indexHijo;
+	int antecesor = indexHijo - 1;
+	if (antecesor < 0) antecesor += n;
+
+	//Ejecutamos la ronda hasta que el pipe del antecesor se cierre
+	while (0 != read(pipesEntreHijos[antecesor][PIPE_READ], &nroRecibido, sizeof(int)))
+	{
+		// printf("DEBUG: Recibí el nro %i del proceso %i. Soy el proceso %i.\n", nroRecibido, antecesor, indexHijo);
+		nroRecibido++;
+		write(pipesEntreHijos[sucesor][PIPE_WRITE], &nroRecibido, sizeof(int));
+		// printf("DEBUG: Envié el nro %i al proceso %i. Soy el proceso %i.\n", nroRecibido, (sucesor+1)%n, indexHijo);
+	}
+	// printf("DEBUG: Proceso %i salió del while con éxito.\n", indexHijo);
+	exit(EXIT_SUCCESS);	
+}
+
+void ejecutarHijos(int pipeDesdePadre[2], int pipeHaciaPadre[2], int pipesEntreHijos[][2],
+				 int indexHijo, int start, int n) 
+{
 	cerrarPipesHijo(pipeDesdePadre, pipeHaciaPadre, pipesEntreHijos, indexHijo, start, n);
-
-	/* COMPLETAR */
-
+	if (start == indexHijo) {
+		ejecutarPrimerHijo(pipeDesdePadre, pipeHaciaPadre, pipesEntreHijos, start, n);
+	} else {
+		ejecutarRestoDeHijos(pipesEntreHijos, indexHijo, n);
+	}
 }
 
 
@@ -77,17 +136,17 @@ int main(int argc, char **argv)
 	int pipesEntreHijos[n][2];
 	/* Creamos pipes */
 	if(pipe(pipeDesdePadre) == -1) {
-		printf("Error al crear pipe desde padre.");
+		printf("Error al crear pipe desde padre.\n");
 		exit(EXIT_FAILURE);
 	}
 	if(pipe(pipeHaciaPadre) == -1) {
-		printf("Error al crear pipe hacia padre.");
+		printf("Error al crear pipe hacia padre.\n");
 		exit(EXIT_FAILURE);
 	}
 	for (int i = 0; i < n; i++)
 	{
 		if(pipe(pipesEntreHijos[i]) == -1){
-			printf("Error al crear pipes entre hijo %i y %i.", i, (i+1)%n);
+			printf("Error al crear pipes entre hijo %i y %i.\n", i, (i+1)%n);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -97,9 +156,9 @@ int main(int argc, char **argv)
 	{
 		pid_t pid = fork();
 		if (pid == 0) {
-			ejecutarHijo(pipeDesdePadre, pipeHaciaPadre, pipesEntreHijos, i, start, n);
+			ejecutarHijos(pipeDesdePadre, pipeHaciaPadre, pipesEntreHijos, i, start, n);
 		} else if (pid < 0) {
-			printf("Error al crear hijo %i", i);
+			printf("Error al crear hijo %i\n", i);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -107,7 +166,11 @@ int main(int argc, char **argv)
 	/* Cerramos los pipes que no usa el padre */
 	cerrarPipesPadre(pipeDesdePadre, pipeHaciaPadre, pipesEntreHijos, n);
 
-	/* COMPLETAR */
+	/* Enviamos al proceso indicado el numero que esta en buffer*/
+	write(pipeDesdePadre[PIPE_WRITE], &buffer, sizeof(int));
+	/* Esperamos el mensaje final*/
+	read(pipeHaciaPadre[PIPE_READ], &buffer, sizeof(int));
+	printf("El número final es: %i\n", buffer);
 	
 	return 0;
 }

@@ -1,0 +1,209 @@
+4969  execve("./hai64", ["./hai64", "ls"], 0x7fffe56c8928 /* 61 vars */) = 0
+4969  uname({sysname="Linux", nodename="pc34.lab1111", ...}) = 0
+4969  brk(NULL)                         = 0x246c000
+4969  brk(0x246d1c0)                    = 0x246d1c0
+4969  arch_prctl(ARCH_SET_FS, 0x246c880) = 0
+4969  readlink("/proc/self/exe", "/home/clinux01/TallerSO/Taller d"..., 4096) = 57
+4969  brk(0x248e1c0)                    = 0x248e1c0
+4969  brk(0x248f000)                    = 0x248f000
+4969  access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No existe el archivo o el directorio)
+//fork
+4969  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x246cb50) = 4970
+//Cambia handlers (SIGINT Para padre, SIGURG para hijo)
+4969  rt_sigaction(SIGINT, {sa_handler=0x40108e, sa_mask=[INT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x406bf0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+	4970  rt_sigaction(SIGURG, {sa_handler=0x40105e, sa_mask=[URG], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x406bf0},  <unfinished ...>
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+	4970  <... rt_sigaction resumed>{sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+4969  rt_sigaction(SIGCHLD, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+4969  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+//Sleep 1 sec
+4969  nanosleep({tv_sec=1, tv_nsec=0}, 0x7ffe57c7b770) = 0
+4969  write(1, "sup!\n", 5)             = 5
+//Proceso padre envia señal SIGURG a hijo
+4969  kill(4970, SIGURG)                = 0
+	4970  --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=4969, si_uid=1001} --- //Recibe señal
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...>
+	4970  write(1, "ya va!\n", 7 <unfinished ...> //Hijo responde
+4969  <... rt_sigprocmask resumed>[], 8) = 0
+	4970  <... write resumed>)              = 7
+	4970  rt_sigreturn({mask=[]} <unfinished ...> 
+4969  rt_sigaction(SIGCHLD, NULL,  <unfinished ...>
+	4970  <... rt_sigreturn resumed>)       = 0
+4969  <... rt_sigaction resumed>{sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+4969  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+
+//Que son los = q estan en todas las lineas?
+4969  nanosleep({tv_sec=1, tv_nsec=0}, 0x7ffe57c7b770) = 0
+//Proceso padre envia señal SIGURG a hijo
+4969  write(1, "sup!\n", 5)             = 5
+4969  kill(4970, SIGURG)                = 0
+	4970  --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=4969, si_uid=1001} --- //hijo recibe señal
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...> 
+	4970  write(1, "ya va!\n", 7 <unfinished ...> //Hijo responde
+4969  <... rt_sigprocmask resumed>[], 8) = 0
+	4970  <... write resumed>)              = 7
+4969  rt_sigaction(SIGCHLD, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+	4970  rt_sigreturn({mask=[]} <unfinished ...>
+4969  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+4969  nanosleep({tv_sec=1, tv_nsec=0},  <unfinished ...>
+	4970  <... rt_sigreturn resumed>)       = 1
+4969  <... nanosleep resumed>0x7ffe57c7b770) = 0
+//Proceso padre envia señal SIGURG a hijo
+4969  write(1, "sup!\n", 5)             = 5
+4969  kill(4970, SIGURG)                = 0
+	4970  --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=4969, si_uid=1001} --- //recibe señal hijo
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...>
+	4970  write(1, "ya va!\n", 7 <unfinished ...> //Hijo responde
+4969  <... rt_sigprocmask resumed>[], 8) = 0
+	4970  <... write resumed>)              = 7
+4969  rt_sigaction(SIGCHLD, NULL,  <unfinished ...>
+	4970  rt_sigreturn({mask=[]})           = 2
+4969  <... rt_sigaction resumed>{sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+4969  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+4969  nanosleep({tv_sec=1, tv_nsec=0}, 0x7ffe57c7b770) = 0
+//Proceso padre envia señal SIGURG a hijo
+4969  write(1, "sup!\n", 5)             = 5
+4969  kill(4970, SIGURG)                = 0
+	4970  --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=4969, si_uid=1001} --- //hijo recibe señal
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...>
+	4970  write(1, "ya va!\n", 7 <unfinished ...>	//Hijo responde
+4969  <... rt_sigprocmask resumed>[], 8) = 0
+	4970  <... write resumed>)              = 7
+4969  rt_sigaction(SIGCHLD, NULL,  <unfinished ...>
+	4970  rt_sigreturn({mask=[]} <unfinished ...>
+4969  <... rt_sigaction resumed>{sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+	4970  <... rt_sigreturn resumed>)       = 3
+4969  rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+4969  nanosleep({tv_sec=1, tv_nsec=0}, 0x7ffe57c7b770) = 0
+//Proceso padre envia señal SIGURG a hijo
+4969  write(1, "sup!\n", 5)             = 5
+4969  kill(4970, SIGURG)                = 0
+	4970  --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=4969, si_uid=1001} --- //hijo recibe señal
+4969  rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...>
+	4970  write(1, "ya va!\n", 7)           = 7	//Hijo responde
+	4970  rt_sigreturn({mask=[]} <unfinished ...>
+4969  <... rt_sigprocmask resumed>[], 8) = 0
+	4970  <... rt_sigreturn resumed>)       = 4
+4969  rt_sigaction(SIGCHLD, NULL,  <unfinished ...>
+	4970  getppid( <unfinished ...>	//Pido el pid del proceso padre
+4969  <... rt_sigaction resumed>{sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+	4970  <... getppid resumed>)            = 4969 //Pido el pid del proceso padre
+4969  rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+	4970  kill(4969, SIGINT <unfinished ...> //Envio SIGINT al padre
+4969  <... rt_sigprocmask resumed>NULL, 8) = 0
+	4970  <... kill resumed>)               = 0
+4969  --- SIGINT {si_signo=SIGINT, si_code=SI_USER, si_pid=4970, si_uid=1001} --- //Recibe SIGINT de hijo
+4969  wait4(-1,  <unfinished ...> //Espera a que algun hijo (pid = -1) termine
+	//Ejecuta programa
+	4970  execve("/opt/bochs-2.7//ls", ["ls"], 0x7ffe57c7ba60 /* 61 vars */) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  execve("/usr/local/sbin/ls", ["ls"], 0x7ffe57c7ba60 /* 61 vars */) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  execve("/usr/local/bin/ls", ["ls"], 0x7ffe57c7ba60 /* 61 vars */) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  execve("/usr/sbin/ls", ["ls"], 0x7ffe57c7ba60 /* 61 vars */) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  execve("/usr/bin/ls", ["ls"], 0x7ffe57c7ba60 /* 61 vars */) = 0
+	4970  brk(NULL)                         = 0x55f27f231000
+	4970  arch_prctl(0x3001 /* ARCH_??? */, 0x7ffdbc02be80) = -1 EINVAL (Argumento inválido)
+	4970  access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+	4970  fstat(3, {st_mode=S_IFREG|0644, st_size=118000, ...}) = 0
+	4970  mmap(NULL, 118000, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f267e8b6000
+	4970  close(3)                          = 0
+	4970  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3
+	4970  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0@p\0\0\0\0\0\0"..., 832) = 832
+	4970  fstat(3, {st_mode=S_IFREG|0644, st_size=163200, ...}) = 0
+	4970  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f267e8b4000
+	4970  mmap(NULL, 174600, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f267e889000
+	4970  mprotect(0x7f267e88f000, 135168, PROT_NONE) = 0
+	4970  mmap(0x7f267e88f000, 102400, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x7f267e88f000
+	4970  mmap(0x7f267e8a8000, 28672, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0x7f267e8a8000
+	4970  mmap(0x7f267e8b0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f267e8b0000
+	4970  mmap(0x7f267e8b2000, 6664, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f267e8b2000
+	4970  close(3)                          = 0
+	4970  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+	4970  read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+	4970  pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+	4970  pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+	4970  pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+	4970  fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+	4970  pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+	4970  pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+	4970  pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+	4970  mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f267e697000
+	4970  mmap(0x7f267e6b9000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f267e6b9000
+	4970  mmap(0x7f267e831000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f267e831000
+	4970  mmap(0x7f267e87f000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f267e87f000
+	4970  mmap(0x7f267e885000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f267e885000
+	4970  close(3)                          = 0
+	4970  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre2-8.so.0", O_RDONLY|O_CLOEXEC) = 3
+	4970  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\"\0\0\0\0\0\0"..., 832) = 832
+	4970  fstat(3, {st_mode=S_IFREG|0644, st_size=588488, ...}) = 0
+	4970  mmap(NULL, 590632, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f267e606000
+	4970  mmap(0x7f267e608000, 413696, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f267e608000
+	4970  mmap(0x7f267e66d000, 163840, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x67000) = 0x7f267e66d000
+	4970  mmapBSD(0x7f267e695000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8e000) = 0x7f267e695000
+	4970  close(3)                          = 0
+	4970  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+	4970  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+	4970  fstat(3, {st_mode=S_IFREG|0644, st_size=18848, ...}) = 0
+	4970  mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f267e600000
+	4970  mmap(0x7f267e601000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f267e601000
+	4970  mmap(0x7f267e603000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f267e603000
+	4970  mmap(0x7f267e604000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f267e604000
+	4970  close(3)                          = 0
+	4970  openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+	4970  read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220q\0\0\0\0\0\0"..., 832) = 832
+	4970  pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0{E6\364\34\332\245\210\204\10\350-\0106\343="..., 68, 824) = 68
+	4970  fstat(3, {st_mode=S_IFREG|0755, st_size=157224, ...}) = 0
+	4970  pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0{E6\364\34\332\245\210\204\10\350-\0106\343="..., 68, 824) = 68
+	4970  mmap(NULL, 140408, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f267e5dd000
+	4970  mmap(0x7f267e5e3000, 69632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x7f267e5e3000
+	4970  mmap(0x7f267e5f4000, 24576, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7f267e5f4000
+	4970  mmap(0x7f267e5fa000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0x7f267e5fa000
+	4970  mmap(0x7f267e5fc000, 13432, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f267e5fc000
+	4970  close(3)                          = 0
+	4970  mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f267e5db000
+	4970  arch_prctl(ARCH_SET_FS, 0x7f267e5dc400) = 0
+	4970  mprotect(0x7f267e87f000, 16384, PROT_READ) = 0
+	4970  mprotect(0x7f267e5fa000, 4096, PROT_READ) = 0
+	4970  mprotect(0x7f267e604000, 4096, PROT_READ) = 0
+	4970  mprotect(0x7f267e695000, 4096, PROT_READ) = 0
+	4970  mprotect(0x7f267e8b0000, 4096, PROT_READ) = 0
+	4970  mprotect(0x55f27e3d7000, 4096, PROT_READ) = 0
+	4970  mprotect(0x7f267e900000, 4096, PROT_READ) = 0
+	4970  munmap(0x7f267e8b6000, 118000)    = 0
+	4970  set_tid_address(0x7f267e5dc6d0)   = 4970
+	4970  set_robust_list(0x7f267e5dc6e0, 24) = 0
+	4970  rt_sigaction(SIGRTMIN, {sa_handler=0x7f267e5e3bf0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7f267e5f1420}, NULL, 8) = 0
+	4970  rt_sigaction(SIGRT_1, {sa_handler=0x7f267e5e3c90, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f267e5f1420}, NULL, 8) = 0
+	4970  rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+	4970  prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+	4970  statfs("/sys/fs/selinux", 0x7ffdbc02bdd0) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  statfs("/selinux", 0x7ffdbc02bdd0) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  brk(NULL)                         = 0x55f27f231000
+	4970  brk(0x55f27f252000)               = 0x55f27f252000
+	4970  openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3
+	4970  fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+	4970  read(3, "nodev\tsysfs\nnodev\ttmpfs\nnodev\tbd"..., 1024) = 393
+	4970  read(3, "", 1024)                 = 0
+	4970  close(3)                          = 0
+	4970  access("/etc/selinux/config", F_OK) = -1 ENOENT (No existe el archivo o el directorio)
+	4970  openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+	4970  fstat(3, {st_mode=S_IFREG|0644, st_size=14537584, ...}) = 0
+	4970  mmap(NULL, 14537584, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f267d7fd000
+	4970  close(3)                          = 0
+	4970  ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+	4970  ioctl(1, TIOCGWINSZ, {ws_row=27, ws_col=195, ws_xpixel=0, ws_ypixel=0}) = 0
+	4970  openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+	4970  fstat(3, {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+	4970  getdents64(3, /* 8 entries */, 32768) = 240
+	4970  getdents64(3, /* 0 entries */, 32768) = 0
+	4970  close(3)                          = 0
+	4970  fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+	4970  write(1, "Enunciado.pdf  hai  hai64  hai.c"..., 52) = 52
+	4970  close(1)                          = 0
+	4970  close(2)                          = 0
+	4970  exit_group(0)                     = ?
+	4970  +++ exited with 0 +++
+4969  <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 4970
+4969  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4970, si_uid=1001, si_status=0, si_utime=500, si_stime=0} ---
+4969  exit_group(0)                     = ?
+4969  +++ exited with 0 +++

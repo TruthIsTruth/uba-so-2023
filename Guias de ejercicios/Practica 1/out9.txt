@@ -1,0 +1,80 @@
+11245 execve("./ej9", ["./ej9"], 0x7ffd3cad2e70 /* 54 vars */) = 0
+11245 brk(NULL)                         = 0x55b78c3a3000
+11245 arch_prctl(0x3001 /* ARCH_??? */, 0x7fffe30beff0) = -1 EINVAL (Invalid argument)
+11245 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6059055000
+11245 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+11245 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+11245 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=64079, ...}, AT_EMPTY_PATH) = 0
+11245 mmap(NULL, 64079, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6059045000
+11245 close(3)                          = 0
+11245 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+11245 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+11245 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+11245 pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+11245 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0i8\235HZ\227\223\333\350s\360\352,\223\340."..., 68, 896) = 68
+11245 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+11245 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+11245 mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6058e00000
+11245 mmap(0x7f6058e28000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f6058e28000
+11245 mmap(0x7f6058fbd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f6058fbd000
+11245 mmap(0x7f6059015000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7f6059015000
+11245 mmap(0x7f605901b000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f605901b000
+11245 close(3)                          = 0
+11245 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6059042000
+11245 arch_prctl(ARCH_SET_FS, 0x7f6059042740) = 0
+11245 set_tid_address(0x7f6059042a10)   = 11245
+11245 set_robust_list(0x7f6059042a20, 24) = 0
+11245 rseq(0x7f60590430e0, 0x20, 0, 0x53053053) = 0
+11245 mprotect(0x7f6059015000, 16384, PROT_READ) = 0
+11245 mprotect(0x55b78ac1b000, 4096, PROT_READ) = 0
+11245 mprotect(0x7f605908f000, 8192, PROT_READ) = 0
+11245 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+11245 munmap(0x7f6059045000, 64079)     = 0
+11245 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6059042a10) = 11247
+11245 newfstatat(1, "",  <unfinished ...>
+11247 set_robust_list(0x7f6059042a20, 24 <unfinished ...>
+11245 <... newfstatat resumed>{st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+11247 <... set_robust_list resumed>)    = 0
+11245 getrandom("\xe7\x7a\x9c\xe0\x83\x9a\xfb\x97", 8, GRND_NONBLOCK) = 8
+11245 brk(NULL <unfinished ...>
+11247 newfstatat(1, "",  <unfinished ...>
+11245 <... brk resumed>)                = 0x55b78c3a3000
+11247 <... newfstatat resumed>{st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+11245 brk(0x55b78c3c4000 <unfinished ...>
+11247 getrandom( <unfinished ...>
+11245 <... brk resumed>)                = 0x55b78c3c4000
+11247 <... getrandom resumed>"\x40\xa6\xf5\x9b\x2e\x1c\x0b\xe7", 8, GRND_NONBLOCK) = 8
+11245 write(1, "Soy Juan\n", 9 <unfinished ...>
+11247 brk(NULL <unfinished ...>
+11245 <... write resumed>)              = 9
+11247 <... brk resumed>)                = 0x55b78c3a3000
+11245 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+11247 brk(0x55b78c3c4000)               = 0x55b78c3c4000
+11247 write(1, "Soy Julieta\n", 12)     = 12
+11247 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+11245 <... clock_nanosleep resumed>0x7fffe30bf050) = 0
+11245 wait4(-1,  <unfinished ...>
+11247 <... clock_nanosleep resumed>0x7fffe30bf050) = 0
+11247 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6059042a10) = 11248
+11248 set_robust_list(0x7f6059042a20, 24) = 0
+11247 exit_group(0 <unfinished ...>
+11248 write(1, "Soy Jennifer\n", 13 <unfinished ...>
+11247 <... exit_group resumed>)         = ?
+11248 <... write resumed>)              = 13
+11248 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+11247 +++ exited with 0 +++
+11245 <... wait4 resumed>NULL, 0, NULL) = 11247
+11245 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11247, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+11245 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6059042a10) = 11249
+11249 set_robust_list(0x7f6059042a20, 24) = 0
+11245 exit_group(0)                     = ?
+11249 write(1, "Soy Jorge\n", 10)       = 10
+11245 +++ exited with 0 +++
+11249 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+11248 <... clock_nanosleep resumed>0x7fffe30bf050) = 0
+11248 exit_group(0)                     = ?
+11249 <... clock_nanosleep resumed>0x7fffe30bf050) = 0
+11249 exit_group(0 <unfinished ...>
+11248 +++ exited with 0 +++
+11249 <... exit_group resumed>)         = ?
+11249 +++ exited with 0 +++

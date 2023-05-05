@@ -1,0 +1,27 @@
+barrera1 = sem()
+barrera2 = sem()
+puede_pasar_1 = sem()
+mutex = sem(1)
+direccion = 0
+autos_actualmente = 0
+
+auto1(){
+    mutex.wait()
+    if autos_actualmente_1 > 0
+    puede_pasar_1.wait()
+    mutex.wait()
+    autos_actualmente_1++
+    mutex.signal()
+    pasar_puente()
+    mutex.wait()
+    autos_actualmente_1--
+    if (autos_actualmente_1 == 0)
+    mutex.signal()
+}
+
+auto2{
+
+}
+
+//sol profe
+

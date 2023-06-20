@@ -1,0 +1,9 @@
+00-que la fuerza te acompañe
+01-son nuestras elecciones harry las que muestran lo que somos mucho más que nuestras habilidades
+02-Una cosa es cuestionar tu mente y otra es cuestionar tus ojos y oídos. ¿Pero acaso no es lo mismo?
+03-Por favor hal abre las puertas
+04-No existen preguntas sin respuesta, solo preguntas mal formuladas (su - flag04, ENTER, pass)
+05-¿Carreteras? A donde vamos no necesitamos carreteras.
+06-¿Tienes miedo a morir? Entonces ya sabes lo que es ser un esclavo.
+07-Por desgracia no se puede explicar lo que es Matrix. Tienes que verlo con tus propios ojos.
+08-

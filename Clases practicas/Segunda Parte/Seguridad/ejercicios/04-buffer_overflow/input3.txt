@@ -1,0 +1,7 @@
+rsi rdx rcx r8 r9
+%p  %p  %p  %p  %p
+%p%p%p%p%p
+
+gdb:
+	info reg
+	x/xg $rsi

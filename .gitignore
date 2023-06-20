@@ -54,3 +54,6 @@ dkms.conf
 # Others
 .vscode/
 bin/
+TP/
+talleres-ssoo/
+so-labo-seginf.ova

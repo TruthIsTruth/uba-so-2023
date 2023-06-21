@@ -7,7 +7,7 @@
 
 #define DEVICE_NAME "nulo"
 
-struct cdev nulo_dev;
+static struct cdev nulo_dev;
 static struct class *mi_class;
 dev_t major;
 
@@ -27,13 +27,11 @@ static struct file_operations nulo_operaciones = {
 };
 
 static int __init nulo_init(void) {
-	//Inicializar el device como un char device
-	cdev_init(&nulo_dev, &nulo_operaciones);
-	
 	//Conseguir los device numbers (el major y el minor)
-	//char *name = "nulo_dev";
 	alloc_chrdev_region(&major, 0, 1, "nulo_dev"); //firstminor = 0; count = 1
 	
+	//Inicializar el device como un char device
+	cdev_init(&nulo_dev, &nulo_operaciones);
 	//Asignar los números al dispositivo que inicializamos previamente
 	cdev_add(&nulo_dev, major, 1); //count = 1
 	
@@ -44,12 +42,12 @@ static int __init nulo_init(void) {
 }
 
 static void __exit nulo_exit(void) {
-	//Liberar recursos - Segundo
-	unregister_chrdev_region(major, 1); //count = 1
-	cdev_del(&nulo_dev);
 	//Destruir nodos -Primero
 	device_destroy(mi_class, major);
 	class_destroy(mi_class);
+	//Liberar recursos - Segundo
+	unregister_chrdev_region(major, 1); //count = 1
+	cdev_del(&nulo_dev);
 }
 
 // Completar

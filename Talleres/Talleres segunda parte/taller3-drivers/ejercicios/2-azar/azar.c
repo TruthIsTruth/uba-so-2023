@@ -57,12 +57,11 @@ static struct file_operations azar_operaciones = {
 };
 
 static int __init azar_init(void) {
-	//Inicializar el device como un char device
-	cdev_init(&azar_dev, &azar_operaciones);
-	
 	//Conseguir los device numbers (el major y el minor)
 	alloc_chrdev_region(&major, 0, 1, "azar_dev"); //firstminor = 0; count = 1
 	
+    //Inicializar el device como un char device
+	cdev_init(&azar_dev, &azar_operaciones);	
 	//Asignar los números al dispositivo que inicializamos previamente
 	cdev_add(&azar_dev, major, 1); //count = 1
 	

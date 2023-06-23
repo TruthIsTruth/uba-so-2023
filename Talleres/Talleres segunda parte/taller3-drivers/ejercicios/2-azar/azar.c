@@ -14,27 +14,28 @@ struct cdev azar_dev;
 static struct class *mi_class;
 static dev_t major;
 
-static int numero;
+static int numero = -1;
 
 static ssize_t azar_read(struct file *filp, char __user *data, size_t s, loff_t *off) {
 	unsigned int rand = 0;
     char *buffer;
     int leidos;
+    if (numero <= 0) return -EPERM;
+
     get_random_bytes(&rand, sizeof(rand));
     rand = rand % numero;
-
     buffer = (char *) kmalloc(s+1, GFP_KERNEL);
     leidos = snprintf(buffer, s, "%u", rand);
-    if(leidos <= 0){
-        kfree((void *) buffer);
-        return -EPERM;
-    }
+    // if(leidos <= 0){
+    //     kfree((void *) buffer);
+    //     return -EPERM;
+    // }
     buffer[s] = '\n';
 
-    copy_to_user(data, buffer, leidos+1);
+    copy_to_user(data, buffer, min((size_t) leidos+1, s));
     kfree((void *) buffer);
     
-    return s;
+    return min((size_t) leidos+1, s);
 }
 
 static ssize_t azar_write(struct file *filp, const char __user *data, size_t s, loff_t *off) {
@@ -43,7 +44,7 @@ static ssize_t azar_write(struct file *filp, const char __user *data, size_t s, 
     
     buffer[s] = '\0';
 
-    if (0 == kstrtoint(buffer, 10, &numero)){
+    if (0 == kstrtoint(buffer, 10, &numero) && numero >= 0){
         kfree((void *) buffer);
         return s;
     }

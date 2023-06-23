@@ -25,14 +25,12 @@ typedef struct espacio {
 
 static int letras123_open(struct inode *inod, struct file *filp) {
     int index = -1;
-    int i;
-    bool found;
+    int i = 0;
+    bool found = false;
     espacio_t *userdata;
 
     spin_lock(&lock);
-        i = 0;
-        found = false;
-        while (i < 3 || found) {
+        while (!found && (i < 3)) {
             if (libres[i]) {
                 index = i;
                 libres[i] = false;
@@ -57,9 +55,9 @@ static int letras123_close(struct inode *inod, struct file *filp) {
     espacio_t *userdata;
     if (filp->private_data == NULL) return -EPERM;
     userdata = (espacio_t *) filp->private_data;
-    //spin_lock(&lock);
+    spin_lock(&lock);
     libres[userdata->index] = true;
-    //spin_unlock(&lock);
+    spin_unlock(&lock);
 
     kfree((void *) userdata);
     filp->private_data = NULL;
@@ -68,7 +66,7 @@ static int letras123_close(struct inode *inod, struct file *filp) {
 
 static ssize_t letras123_read(struct file *filp, char __user *data, size_t s, loff_t *off) {
     espacio_t *userdata;
-    int i;
+    int i = 0;
     int index;
     char *buffer;
 
@@ -78,7 +76,6 @@ static ssize_t letras123_read(struct file *filp, char __user *data, size_t s, lo
 
     index = userdata->index;
     buffer = (char *) kmalloc(s, GFP_KERNEL);
-    i = 0;
     while (i < s) {
         buffer[i] = espacios[index];
         i++;
@@ -95,13 +92,13 @@ static ssize_t letras123_write(struct file *filp, const char __user *data, size_
     
     if (filp->private_data == NULL) return -EPERM;
     userdata = (espacio_t *) filp->private_data;
-    if (userdata->wrote) return 0;
+    if (userdata->wrote || s == 0) return 0;
 
     copy_from_user(&c, data, 1);
     espacios[userdata->index] = c;
     userdata->wrote = true;
 
-    return 1;
+    return s;
 }
 
 static struct file_operations letras123_operaciones = {

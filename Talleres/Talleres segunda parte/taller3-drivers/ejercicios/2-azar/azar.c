@@ -18,34 +18,36 @@ static int numero;
 
 static ssize_t azar_read(struct file *filp, char __user *data, size_t s, loff_t *off) {
 	unsigned int rand = 0;
+    char *buffer;
+    int leidos;
     get_random_bytes(&rand, sizeof(rand));
     rand = rand % numero;
 
-    char *buffer = kmalloc(s+1, GFP_KERNEL);
-    int leidos = snprintf(buffer, s, "%u", rand);
+    buffer = (char *) kmalloc(s+1, GFP_KERNEL);
+    leidos = snprintf(buffer, s, "%u", rand);
     if(leidos <= 0){
-        kfree(buffer);
+        kfree((void *) buffer);
         return -EPERM;
     }
     buffer[s] = '\n';
 
     copy_to_user(data, buffer, leidos+1);
-    kfree(buffer);
+    kfree((void *) buffer);
     
     return s;
 }
 
 static ssize_t azar_write(struct file *filp, const char __user *data, size_t s, loff_t *off) {
-	char *buffer = kmalloc(s+1, GFP_KERNEL);
+	char *buffer = (char *) kmalloc(s+1, GFP_KERNEL);
     copy_from_user(buffer, data, s);
     
     buffer[s] = '\0';
 
     if (0 == kstrtoint(buffer, 10, &numero)){
-        kfree(buffer);
+        kfree((void *) buffer);
         return s;
     }
-    kfree(buffer);
+    kfree((void *) buffer);
     return -EPERM;
 }
 

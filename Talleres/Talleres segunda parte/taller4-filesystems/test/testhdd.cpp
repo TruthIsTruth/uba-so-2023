@@ -65,6 +65,7 @@ void test_get_block_address(Ext2FS * fs){
 }
 
 void test_get_file_inode_from_dir_inode(Ext2FS * fs){
+	cout << "=== Test Get File Inode from Dir Inode ===" << endl; 
     unsigned char caracteres[9];
 	fd_t fileDesc = fs->open("/grupos/g1/nota.txt", "cualquiera");
 	fs->seek(fileDesc,13999);
@@ -82,15 +83,15 @@ int main(int argc, char ** argv)
 	HDD hdd(argv[1]);
 
 	//Esto lo pueden comentar. Es sólo para ver si descomprimieron bien la imagen de disco
-	test_hdd(&hdd);
+	//test_hdd(&hdd);
 
 	Ext2FS * fs = new Ext2FS(hdd, 1);
         
     //Esto lo pueden comentar. Es sólo para ver si el FS está bien
-	test_file_system(fs);
+	//test_file_system(fs);
 
 	//Esto lo pueden comentar. Es sólo para ver si el FS está bien
-	test_block_groups(fs);
+	//test_block_groups(fs);
 
 	
     //Test ejercicios

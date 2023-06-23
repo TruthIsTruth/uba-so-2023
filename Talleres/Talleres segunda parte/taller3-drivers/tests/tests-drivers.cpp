@@ -205,6 +205,6 @@ void test_letras123() {
 int main(int argc, char ** argv) {
     test_nulo();
     test_azar();
-    //test_letras123();
+    test_letras123();
 	return 0;
 }

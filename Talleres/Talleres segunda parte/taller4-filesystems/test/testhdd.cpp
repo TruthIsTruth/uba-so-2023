@@ -78,6 +78,18 @@ void test_get_file_inode_from_dir_inode(Ext2FS * fs){
   	cout << "APROBADO!" << endl;
   }
 }
+
+void leer_nota(Ext2FS * fs) {
+	cout << "=== Leyendo archivo /grupos/g17/nota.txt ===" << endl; 
+    unsigned char caracteres[51];
+	fd_t fileDesc = fs->open("/grupos/g1/nota.txt", "cualquiera");
+	fs->seek(fileDesc,13999);
+	fs->read(fileDesc,caracteres,50);
+	caracteres[50]='\0';
+
+	printf("%s\n", caracteres);
+}
+
 int main(int argc, char ** argv)
 {
 	HDD hdd(argv[1]);
@@ -98,6 +110,8 @@ int main(int argc, char ** argv)
     test_load_inode(fs);
     test_get_block_address(fs);
     test_get_file_inode_from_dir_inode(fs);
+
+	leer_nota(fs);
     
 	return 0;
 }
